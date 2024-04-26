@@ -1,38 +1,133 @@
-.App {
-  text-align: center;
+.map-container {
+  position: relative;  /* Essential for containing absolutely positioned elements */
+  width: 800px;        /* Adjust width as necessary */
+  height: 400px;       /* Adjust height as necessary */
+  margin: 0 auto;      /* Centers the container horizontally */
+  overflow: hidden;    /* Ensures no overflow */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Adjusted the container for the QR code to control size more effectively */
+.qr-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  padding: 10px; /* No extra padding */
+  max-width: 200px; /* Smaller max-width for the QR code */
+  border: 1px solid #00000000; /* Adding a barely visible border for clarity */
+  margin-top: 10px; /* Adjust space above the QR code if needed */
 }
 
-.App-link {
-  color: #61dafb;
+.qr-code {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Use full width of the container, which is now 120px */
+  height: auto; /* Maintains aspect ratio */
+  padding: 10%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.map-image {
+  width: 100%;         /* Ensures the image covers the full container */
+  height: auto;        /* Maintains aspect ratio */
+  display: block;      /* Removes bottom margin/gap */
+}
+
+.map-sections {
+  position: absolute;  /* Positions relative to .map-container */
+  top: 0;
+  left: 0;
+  width: 100%;         /* Covers the full area of .map-container */
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr; /* Makes the middle column less wide */
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.map-section {
+  box-sizing: border-box;   /* Includes padding and border in the element's total width and height */
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0); /* Initial background color: transparent */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.map-section:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Highlight on hover */
+}
+
+.map-section.active {
+  background-color: rgba(253, 195, 22, 0.65); /* Highlight for active section */
+}
+
+
+
+.textarea-large {
+  width: 28%;
+  height: 150px;
+  margin: 20px 0;
+}
+
+.toggles {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Space between toggle switches */
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px; 
+  height: 24px; 
+  margin: 10px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-label {
+  margin-top: 4px; /* Reduced margin-top to bring labels closer to toggles */
+  color: #FFFFFF; /* Adjusted for better contrast and visibility */
+  font-size: 14px; /* Adjusted font size for better readability */
+  font-weight: bold;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #FFFFFF ; /*#ccc */
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background: conic-gradient(rgb(104, 104, 104),white,rgb(104, 104, 104),white,rgb(104, 104, 104));
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+   /* background-color: rgba(198, 197, 197, 0.625); */
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #1dea19;
+}
+
+input:checked + .slider:before {
+  transform: translateX(38px);
+}
+
+.appback {
+  background-image: url('./assets/App_Background.svg');
+  background-size: cover;
 }
